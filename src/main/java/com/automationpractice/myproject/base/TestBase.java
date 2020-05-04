@@ -14,6 +14,10 @@ public class TestBase {
     protected WebDriver driver;
     protected Logger log;
 
+    protected String testSuiteName;
+    protected String testName;
+    protected String testMethodName;
+
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     public void testSetUp(@Optional("chrome") String browser, ITestContext context) {
@@ -24,6 +28,10 @@ public class TestBase {
         driver = driverFactory.createDriver();
 
         driver.manage().window().maximize();
+
+        this.testSuiteName = context.getSuite().getName();
+        this.testName = testName;
+        this.testMethodName = testMethodName;
     }
 
     @AfterMethod(alwaysRun = true)

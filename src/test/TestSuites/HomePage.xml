@@ -1,14 +1,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="HomePageTestSuite" verbose="1" >
-    <test name="PhoneNumberTest" >
+<suite name="HomePageTestSuite" verbose="1">
+    <test name="HomePageTests - Chrome">
         <classes>
-            <class name="HomePage.HomePageTests" >
-                <methods>
-                    <exclude name="assertUserCanSearchForItems"></exclude>
-                </methods>
+            <class name="HomePage.HomePageTests">
             </class>
+        </classes>
+    </test>
 
+    <test name="HomePageTests - Firefox">
+        <parameter name="browser" value="firefox"></parameter>
+        <classes>
+            <class name="HomePage.HomePageTests">
+            </class>
         </classes>
     </test>
 </suite>
