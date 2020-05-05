@@ -5,6 +5,7 @@ import com.automationpractice.myproject.pages.MyAccountPage;
 import com.automationpractice.myproject.pages.RegisterFormPage;
 import com.automationpractice.myproject.pages.SignInPage;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CreateAccountHappyPath extends TestUtilities {
@@ -14,7 +15,7 @@ public class CreateAccountHappyPath extends TestUtilities {
         SignInPage signInPage = new SignInPage(driver, log);
         signInPage.openSignInPage();
 
-        signInPage.createAccountEmail("johnKowalski21376@wp.pl");
+        signInPage.createAccountEmail("johnKowalski2138@wp.pl");
 
         RegisterFormPage registerFormPage = signInPage.clickOnCreateAccount();
         registerFormPage.chooseGender();
@@ -24,7 +25,7 @@ public class CreateAccountHappyPath extends TestUtilities {
         registerFormPage.typeName("John");
         registerFormPage.typeLastName("Kowalski");
 
-        Assert.assertEquals(registerFormPage.getEmailFromRegisterText(), "johnKowalski21376@wp.pl");
+        Assert.assertEquals(registerFormPage.getEmailFromRegisterText(), "johnKowalski2138@wp.pl");
 
         registerFormPage.typePassword("tttttt");
         Assert.assertEquals(registerFormPage.getPasswordText(), "tttttt");

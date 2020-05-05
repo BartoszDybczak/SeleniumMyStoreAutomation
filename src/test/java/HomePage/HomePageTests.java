@@ -1,27 +1,35 @@
 package HomePage;
 
 import com.automationpractice.myproject.base.TestUtilities;
-import com.automationpractice.myproject.pages.*;
+import com.automationpractice.myproject.pages.ContactUsPage;
+import com.automationpractice.myproject.pages.HomePage;
+import com.automationpractice.myproject.pages.ItemDetailPage;
+import com.automationpractice.myproject.pages.Search;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class HomePageTests extends TestUtilities {
 
-    @Test
-    public void userCanSeeContactNumber() {
-        HomePage homePage = new HomePage(driver, log);
-        homePage.openHomePage();
+    private HomePage homePage;
+    private Search search;
 
+    @BeforeMethod
+    public void setUp() {
+        homePage = new HomePage(driver, log);
+        search = new Search(driver, log);
+
+        homePage.openHomePage();
+    }
+
+    @Test
+    public void verifyIfPhoneNumberIsDisplayed() {
         String expectedPhoneNumber = "0123-456-789";
         Assert.assertEquals(homePage.getPhoneNumberText(), expectedPhoneNumber);
     }
 
     @Test
-    public void userCanClickOnItemCard() {
-        HomePage homePage = new HomePage(driver, log);
-        homePage.openHomePage();
-
+    public void verifyIfItemPriceIsDisplayed() {
         ItemDetailPage itemDetailPage = homePage.clickOnCard();
 
         String expectedPrice = "$16.51";
@@ -30,25 +38,20 @@ public class HomePageTests extends TestUtilities {
 
     @Test
     public void userCanSearchForAnItem() {
-        HomePage homePage = new HomePage(driver, log);
-        Search search = new Search(driver, log);
-
-        homePage.openHomePage();
         search.searchForItem("dress");
         search.clickOnSearchButton();
 
         Assert.assertTrue(search.getSearchHeaderText().contains("SEARCH"));
+
         String expectedItem = "\"DRESS\"";
         Assert.assertEquals(search.getDressText(), expectedItem);
+
         String msg = "7 results have been found.";
         Assert.assertEquals(search.getResultsFoundText(), msg);
     }
 
     @Test
     public void userCanWriteEmailMessage() {
-        HomePage homePage = new HomePage(driver, log);
-        homePage.openHomePage();
-
         ContactUsPage contactUsPage = homePage.clickOnContactUs();
 
         contactUsPage.selectSubject("Customer service");

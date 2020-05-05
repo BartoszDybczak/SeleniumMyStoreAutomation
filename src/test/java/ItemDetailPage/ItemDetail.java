@@ -5,15 +5,21 @@ import com.automationpractice.myproject.pages.ItemDetailPage;
 import com.automationpractice.myproject.pages.TShirtsCategoryPage;
 import com.automationpractice.myproject.pages.TwitterPopupPage;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ItemDetail extends TestUtilities {
 
+    private ItemDetailPage itemDetailPage;
+
+    @BeforeMethod
+    public void setUp() {
+        itemDetailPage = new ItemDetailPage(driver, log);
+        itemDetailPage.openItemDetailPage();
+    }
+
     @Test
     public void userCanIncreaseItemQuantity() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.clickOnPlusButton();
 
         String expectedQty = "2";
@@ -22,9 +28,6 @@ public class ItemDetail extends TestUtilities {
 
     @Test
     public void userCanDecreaseItemQuantity() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.clickOnPlusButton();
         itemDetailPage.clickOnMinusButton();
 
@@ -34,9 +37,6 @@ public class ItemDetail extends TestUtilities {
 
     @Test
     public void userCanSelectItemSize() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.selectItemSize("M");
 
         String expectedSize = "M";
@@ -45,9 +45,6 @@ public class ItemDetail extends TestUtilities {
 
     @Test
     public void userCanShareItemOnTwitter() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.clickOnTwitterButton();
         TwitterPopupPage twitterPopupPage = itemDetailPage.switchToTwitterWindow();
 
@@ -57,9 +54,6 @@ public class ItemDetail extends TestUtilities {
 
     @Test
     public void userCanNavigateToTShirtsCategory() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         TShirtsCategoryPage tShirtsCategoryPage = itemDetailPage.clickOnTShirtsCategory();
 
         String expectedText = "T-shirts";
@@ -68,22 +62,17 @@ public class ItemDetail extends TestUtilities {
 
     @Test
     public void userCanAddItemToCart() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.clickOnAddToCart();
 
         String addToCartExpectedMsg = "Product successfully added to your shopping cart";
         String orderedItemsQtyExpectedMsg = "There is 1 item in your cart.";
+
         Assert.assertEquals(itemDetailPage.getAddToCartText(), addToCartExpectedMsg);
         Assert.assertEquals(itemDetailPage.getOrderedItemQtyText(), orderedItemsQtyExpectedMsg);
     }
 
     @Test
     public void userCanRemoveItemFromCart() {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(driver, log);
-        itemDetailPage.openItemDetailPage();
-
         itemDetailPage.clickOnAddToCart();
         itemDetailPage.clickOnCloseButton();
         itemDetailPage.removeSelectedItemFromCart();
