@@ -22,5 +22,6 @@ public class SuccessfulLogIn extends TestUtilities {
 
         Assert.assertTrue(myAccountPage.getAccountInfoText().contains("Welcome to your account."));
         Assert.assertEquals(myAccountPage.getHeaderText(), "My account".toUpperCase());
+        takeScreenshot("Successful logIn");
     }
 }
